@@ -1,0 +1,12 @@
+if ($#argv) then
+ echo 'All manipulations will be done in' $1 'directory'
+ cd $1
+endif
+echo 'We are now in ' `pwd` 'directory'
+set list_files=`ls -l | egrep -i '^-' | egrep -io ' ([^ ]+\.[^ ]+)$'`
+set dir_files=`ls -l | egrep -i '^-' | egrep -io ' ([^ ]+\.[^ ]+)$' | egrep -io '^[^.]+'`
+mkdir -p $dir_files
+#echo $list_files
+foreach i ($list_files)
+cp -v $i `echo $i | egrep -io '^[^.]+'`
+end
